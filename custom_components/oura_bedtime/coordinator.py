@@ -35,7 +35,7 @@ class OuraBedtimeCoordinator(DataUpdateCoordinator):
         start_date = (now.date() - timedelta(days=BEDTIME_LOOKBACK_DAYS)).isoformat()
 
         try:
-            records = await self.client.async_get_daily_sleep(start_date, end_date)
+            records = await self.client.async_get_sleep(start_date, end_date)
         except OuraApiAuthenticationError as err:
             raise ConfigEntryAuthFailed(str(err)) from err
         except OuraApiError as err:

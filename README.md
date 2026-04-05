@@ -2,6 +2,10 @@
 
 A Home Assistant custom integration that displays your average bedtime over the last 10 days using the Oura Ring API.
 
+## Why
+
+There's no greater indicator of how well your brain is working and how you feel than the time you went to bed over the last 10 days. The closer it is to 11 o'clock, the better. The more it drifts past midnight, the worse. This integration puts that number front and centre on your Home Assistant dashboard.
+
 ## Installation
 
 ### HACS (Recommended)

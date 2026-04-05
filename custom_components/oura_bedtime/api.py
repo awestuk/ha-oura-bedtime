@@ -37,16 +37,19 @@ class OuraApiClient:
         )
         return True
 
-    async def async_get_daily_sleep(
+    async def async_get_sleep(
         self, start_date: str, end_date: str
     ) -> list[dict]:
-        """Fetch daily sleep data for a date range."""
+        """Fetch sleep session data for a date range."""
         url = (
-            f"{API_BASE_URL}/usercollection/daily_sleep"
+            f"{API_BASE_URL}/usercollection/sleep"
             f"?start_date={start_date}&end_date={end_date}"
         )
         response = await self._api_wrapper(url)
-        return response.get("data", [])
+        return [
+            r for r in response.get("data", [])
+            if r.get("type") == "long_sleep"
+        ]
 
     async def _api_wrapper(self, url: str) -> dict:
         """Make an API request with error handling."""
