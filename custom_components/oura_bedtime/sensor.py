@@ -53,8 +53,36 @@ class OuraAverageBedtimeSensor(CoordinatorEntity, SensorEntity):
         return self.coordinator.data.get("average_bedtime")
 
     @property
-    def extra_state_attributes(self) -> dict[str, int] | None:
+    def extra_state_attributes(self) -> dict[str, str | int] | None:
         """Return additional state attributes."""
         if self.coordinator.data is None:
             return None
-        return {"sample_count": self.coordinator.data.get("sample_count", 0)}
+        bedtime = self.coordinator.data.get("average_bedtime", "N/A")
+        return {
+            "sample_count": self.coordinator.data.get("sample_count", 0),
+            "status": _bedtime_status(bedtime),
+        }
+
+
+def _bedtime_status(bedtime: str) -> str:
+    """Return good/warning/late based on average bedtime.
+
+    - Before 23:15 -> good
+    - 23:15 to 23:44 -> warning
+    - 23:45 or later (including after midnight) -> late
+    """
+    if bedtime == "N/A":
+        return "unknown"
+    try:
+        h, m = (int(x) for x in bedtime.split(":"))
+    except ValueError:
+        return "unknown"
+    mins = h * 60 + m
+    # After-midnight times (00:00–05:59) count as late
+    if mins < 360:
+        return "late"
+    if mins >= 1425:  # 23:45
+        return "late"
+    if mins >= 1395:  # 23:15
+        return "warning"
+    return "good"
