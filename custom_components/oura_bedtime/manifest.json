@@ -1,0 +1,10 @@
+{
+  "domain": "oura_bedtime",
+  "name": "Oura Bedtime",
+  "codeowners": ["@awestuk"],
+  "config_flow": true,
+  "documentation": "https://github.com/awestuk/ha-oura-bedtime",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/awestuk/ha-oura-bedtime/issues",
+  "version": "1.0.0"
+}

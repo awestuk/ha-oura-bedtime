@@ -1,0 +1,17 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "description": "Enter your Oura Personal Access Token.\n\nYou can create one at https://cloud.ouraring.com/personal-access-tokens",
+        "data": {
+          "access_token": "Personal Access Token"
+        }
+      }
+    },
+    "error": {
+      "auth": "Invalid access token. Please check your token and try again.",
+      "connection": "Unable to connect to the Oura API. Please try again later.",
+      "unknown": "An unexpected error occurred."
+    }
+  }
+}
